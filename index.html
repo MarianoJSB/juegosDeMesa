@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Juegos de mesa</title>
+</head>
+<body>
+    <header>
+        <div class="left">           
+            <div class="title">
+                <h1>Logo</h1>
+            </div>
+        </div>
+        <div class="right">
+            <div class="buscador">                            
+                <div class="bot">                
+                    <label for="busquedaJuego"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></label>
+                    <input type="search" name="busqueda" id="busquedaJuego" placeholder="Buscar Juego"  id="buscador">                            
+                </div>
+                <div class="resultadosJuegos" id="resultadosJuegos">
+                    <p>Nombre Juego</p>                
+                    <div class="div"></div>
+                    <p>Nombre Juego</p>
+                    <div class="div"></div>
+                    <p>Nombre Juego</p>
+                </div>                    
+            </div>
+            <div class="log">
+                <label>iniciar sesión</label>                
+            </div>
+        </div>
+    </header>
+    <div class="cont">
+        <table id="miTabla">
+            <thead>
+                <tr>                
+                    <th class="nombre">Nombre</th>
+                    <th>Categoria
+                        <select id="categorias" multiple>
+                            <option value="Todos">Todos</option>
+                            <option value="Estrategia">Estrategia</option>
+                            <option value="Rol">Rol</option>
+                            <option value="Familiares">Familiares</option>
+                            <option value="Cartas">Cartas</option>
+                            <option value="Abstractos">Abstractos</option>
+                            <option value="Cooperativos">Cooperativos</option>
+                            <option value="Temáticos">Temáticos</option>
+                            <option value="Party Games">Party Games</option>
+                            <option value="Legacy">Legacy</option>
+                            <option value="Deck-building">Deck-building</option>
+                            <option value="Miniaturas">Miniaturas</option>
+                            <option value="Puzzle">Puzzle</option>
+                            <option value="Economía">Economía</option>
+                            <option value="Aventura">Aventura</option>
+                            <option value="Construcción">Construcción</option>
+                        </select>
+                        
+                    </th>
+                    <th>Proveedor
+                        <select id="proveedores" multiple>
+                            <option value="Todos">Todos</option>
+                            <option value="Asmodee">Asmodee</option>
+                            <option value="Ravensburger">Ravensburger</option>
+                            <option value="Hasbro">Hasbro</option>
+                            <option value="Mattel">Mattel</option>
+                            <option value="Fantasy Flight Games">Fantasy Flight Games</option>
+                            <option value="Days of Wonder">Days of Wonder</option>
+                            <option value="Gamewright">Gamewright</option>
+                            <option value="Z-Man Games">Z-Man Games</option>
+                            <option value="JuegosFantásticos Lt">JuegosFantásticos Lt</option>
+                            <option value="DiversiónInterminabl">DiversiónInterminabl</option>
+                            <option value="InnovaciónLúdica Inc">InnovaciónLúdica Inc</option>
+                            <option value="Ludomágico Corporati">Ludomágico Corporati</option>
+                            <option value="Juegolandia Global">Juegolandia Global</option>
+                            <option value="CartasCreativas Corp">CartasCreativas Corp</option>
+                            <option value="JuegosdelFuturo Ltd.">JuegosdelFuturo Ltd.</option>
+                        </select>
+                    </th>                
+                    <th>Precio</th>
+                    <th>Ganancia</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>                
+                </tr>
+            </thead>
+            <tr>
+                <td>Codenames</td>
+                <td>Deck-building</td>
+                <td id="a" title="555">CartasCreativas Corp</td>
+                <td>98.62</td>
+                <td>34.52</td>
+                <td>15</td>
+                <td>                    
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#212121}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                </td>                        
+            </tr>
+            <tr>
+                <td>Carcassonne</td>
+                <td>Temáticos</td>
+                <td>Fantasy Flight Games</td>
+                <td>84.32</td>
+                <td>29.51</td>
+                <td>8</td>
+                <td><a href="" >editar</a><a href="">borrar</a></td>                        
+            </tr>
+            <tr>
+                <td>Codenames</td>
+                <td>Deck-building</td>
+                <td id="a" title="555">CartasCreativas Corp</td>
+                <td>98.62</td>
+                <td>34.52</td>
+                <td>15</td>
+                <td>
+                    <a href="">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg>
+                    </a>
+                    <a href="">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                    </a>
+                </td>                        
+            </tr>
+            <tr>
+        </table>
+
+    </div>        
+    <script>
+    
+    //NOMBRE
+
+        // Variable para controlar el estado de ordenamiento por nombre
+        let ordenNombreAscendente = true;
+
+        // Obtener la celda de encabezado de la columna de nombre
+        const celdaNombre = document.querySelector(".nombre");
+
+        // Agregar un evento de clic a la celda de encabezado de nombre
+        celdaNombre.addEventListener("click", function () {
+            const filas = Array.from(tabla.rows).slice(1);
+            filas.sort((filaA, filaB) => {
+                const nombreA = filaA.cells[0].textContent; // Suponiendo que el nombre está en la primera columna (índice 0)
+                const nombreB = filaB.cells[0].textContent;
+
+                if (ordenNombreAscendente) {
+                    return nombreA.localeCompare(nombreB); // Orden ascendente
+                } else {
+                    return nombreB.localeCompare(nombreA); // Orden descendente
+                }
+            });
+
+            ordenNombreAscendente = !ordenNombreAscendente;
+
+            while (tabla.rows.length > 1) {
+                tabla.deleteRow(1);
+            }
+
+            filas.forEach((fila) => {
+                tabla.appendChild(fila);
+            });
+        });
+
+    //PRECIO
+
+        // Obtiene la tabla y la columna de precios
+        const tabla = document.getElementById("miTabla");
+        const columnaPrecio = tabla.rows[0].cells[3]; // La cuarta columna (índice 3) tiene los precios
+
+        // Agrega un evento de clic a la columna de precios
+        columnaPrecio.addEventListener("click", function () {
+            const filas = Array.from(tabla.rows).slice(1); // Obtiene todas las filas de datos excluyendo la primera (encabezados)
+            filas.sort((filaA, filaB) => {
+                const precioA = parseFloat(filaA.cells[3].textContent); // Obtiene el precio de la fila A
+                const precioB = parseFloat(filaB.cells[3].textContent); // Obtiene el precio de la fila B
+                return precioA - precioB; // Compara los precios y ordena de menor a mayor
+            });
+
+            // Borra las filas actuales de la tabla
+            while (tabla.rows.length > 1) {
+                tabla.deleteRow(1);
+            }
+
+            // Agrega las filas ordenadas nuevamente a la tabla
+            filas.forEach((fila) => {
+                tabla.appendChild(fila);
+            });
+        });
+        // Variables para controlar el estado de ordenamiento
+        let ordenAscendente = true; // Inicialmente, orden ascendente
+
+        // Agrega un evento de clic a la columna de precios
+        columnaPrecio.addEventListener("click", function () {
+            const filas = Array.from(tabla.rows).slice(1); // Obtiene todas las filas de datos excluyendo la primera (encabezados)
+            filas.sort((filaA, filaB) => {
+                const precioA = parseFloat(filaA.cells[3].textContent); // Obtiene el precio de la fila A
+                const precioB = parseFloat(filaB.cells[3].textContent); // Obtiene el precio de la fila B
+                if (ordenAscendente) {
+                    return precioA - precioB; // Orden ascendente
+                } else {
+                    return precioB - precioA; // Orden descendente
+                }
+            });
+
+            // Cambia la dirección del ordenamiento
+            ordenAscendente = !ordenAscendente;
+
+            // Borra las filas actuales de la tabla
+            while (tabla.rows.length > 1) {
+                tabla.deleteRow(1);
+            }
+
+            // Agrega las filas ordenadas nuevamente a la tabla
+            filas.forEach((fila) => {
+                tabla.appendChild(fila);
+            });
+            });
+
+    //GANANCIA
+
+        const columnaGanancia = tabla.rows[0].cells[4]; // La quinta columna (índice 4) tiene las ganancias
+        let ordenAscendenteGanancia = true;
+
+        columnaGanancia.addEventListener("click", function () {
+            const filas = Array.from(tabla.rows).slice(1);
+            filas.sort((filaA, filaB) => {
+                const gananciaA = parseFloat(filaA.cells[4].textContent);
+                const gananciaB = parseFloat(filaB.cells[4].textContent);
+                if (ordenAscendenteGanancia) {
+                    return gananciaA - gananciaB;
+                } else {
+                    return gananciaB - gananciaA;
+                }
+            });
+
+            ordenAscendenteGanancia = !ordenAscendenteGanancia;
+
+            while (tabla.rows.length > 1) {
+                tabla.deleteRow(1);
+            }
+
+            filas.forEach((fila) => {
+                tabla.appendChild(fila);
+            });
+        });
+
+    //STOCK
+
+        const columnaStock = tabla.rows[0].cells[5]; // La sexta columna (índice 5) tiene el stock
+        let ordenAscendenteStock = true;
+
+        columnaStock.addEventListener("click", function () {
+            const filas = Array.from(tabla.rows).slice(1);
+            filas.sort((filaA, filaB) => {
+                const stockA = parseInt(filaA.cells[5].textContent, 10); // Se asume que el stock es un número entero
+                const stockB = parseInt(filaB.cells[5].textContent, 10);
+                if (ordenAscendenteStock) {
+                    return stockA - stockB;
+                } else {
+                    return stockB - stockA;
+                }
+            });
+
+            ordenAscendenteStock = !ordenAscendenteStock;
+
+            while (tabla.rows.length > 1) {
+                tabla.deleteRow(1);
+            }
+
+            filas.forEach((fila) => {
+                tabla.appendChild(fila);
+            });
+        });
+
+    //CATEGORIA
+
+        const selectCategorias = document.getElementById("categorias");
+        const filas = Array.from(tabla.rows).slice(1);
+
+        // Agregar un evento para detectar cambios en el menú de categorías
+        selectCategorias.addEventListener("change", function () {
+            const opcionesSeleccionadas = Array.from(selectCategorias.selectedOptions).map(option => option.value);
+
+            filas.forEach(fila => {
+                const categoria = fila.cells[1].textContent; // Suponiendo que la categoría está en la segunda columna (índice 1)
+
+                if (opcionesSeleccionadas.includes("Todos") || opcionesSeleccionadas.includes(categoria)) {
+                    fila.style.display = "table-row";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        });
+
+        // Agregar un evento para manejar la opción "Todos"
+        selectCategorias.addEventListener("click", function () {
+            if (selectCategorias.value === "Todos") {
+                if (selectCategorias.selectedOptions.length > 1) {
+                    selectCategorias.options[0].selected = false;
+                } else {
+                    selectCategorias.options[0].selected = true;
+                }
+            } else {
+                selectCategorias.options[0].selected = false;
+            }
+        });
+
+    //PROVEEDORES
+
+        const selectProveedores = document.getElementById("proveedores");
+        const filasP = Array.from(tabla.rows).slice(1);
+
+        // Agregar un evento para detectar cambios en el menú de proveedores
+        selectProveedores.addEventListener("change", function () {
+            const proveedoresSeleccionados = Array.from(selectProveedores.selectedOptions).map(option => option.value);
+
+            filasP.forEach(fila => {
+                const proveedor = fila.cells[2].textContent; // Suponiendo que el proveedor está en la tercera columna (índice 2)
+
+                if (proveedoresSeleccionados.includes("Todos") || proveedoresSeleccionados.includes(proveedor)) {
+                    fila.style.display = "table-row";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        });
+
+        // Agregar un evento para manejar la opción "Todos"
+        selectProveedores.addEventListener("click", function () {
+            if (selectProveedores.value === "Todos") {
+                if (selectProveedores.selectedOptions.length > 1) {
+                    selectProveedores.options[0].selected = false;
+                } else {
+                    selectProveedores.options[0].selected = true;
+                }
+            } else {
+                selectProveedores.options[0].selected = false;
+            }
+        });
+    </script>
+</body>
+</html>

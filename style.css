@@ -1,0 +1,184 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Variables de colores */
+:root {
+    --background-color-page: #f5f5f5;
+    --header-background-color: #333;
+    --header-text-color: #fff;
+    --column-header-background-color: #555;
+    --column-header-text-color: #fff;
+    --row-background-color-even: #e6e6e6;
+    --row-background-color-odd: #fff;
+    --row-text-color: #333;
+    --row-hover-background-color: #b4d7ea;
+  }
+body{
+    background-color: var(--background-color-page);    
+}
+header{
+    height: 60px;
+    width: 100%;            
+    display: flex;     
+    position: fixed;
+    top: 0;       
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.468);
+}
+header .left{
+    width: 40%;   
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background: rgb(115,217,87); 
+}
+header .left h1{
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: rgb(10, 10, 10);
+    font-weight: 500;
+    padding-left: 40px;
+    text-shadow: 1px 1px 5px rgba(58, 58, 58, 0.219);
+}
+header .right{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: end;    
+    align-items: center;    
+    background-color:  rgb(232, 232, 232);
+}
+
+header .right .buscador{
+    display: flex;        
+    flex-direction: column;    
+    width: 330px;
+    margin-right: 50px;
+    margin-top: 16px;
+    height: 50px;
+    align-items: center;    
+
+}
+header .right .log{
+    width: 150px;    
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-right: 32px;
+    justify-content: space-evenly;
+}
+header .buscador .bot{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;    
+    align-items: center;       
+    
+}
+header .buscador label{    
+
+    height: 31px;
+    width: auto;    
+    border-radius: 0 5px 5px 0; 
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.171);   
+}
+header .buscador svg{
+    cursor: pointer;    
+    border-radius: 0 5px 5px 0;  
+    width: 80%;
+    height: 80%;
+    padding: 5px;
+}
+header .buscador svg:hover{
+    transform: scale(1.1);
+}
+header .buscador input{
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.171);   
+    width: 80%;
+    height: 31px;
+    padding: 5px;        
+    border-radius: 5px 0 0 5px;
+
+}
+header .right .buscador .resultadosJuegos{
+    width: 80%;    
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;    
+    font-size: 0.8rem;        
+    height: auto;        
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.272);
+}
+.divisor{    
+    width: 70%;
+    height: 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.149);
+    margin: 2px 0 30px 5px;
+}
+.div{
+    height: 1px;
+    width: 100%;
+    
+}
+header .buscador .resultadosJuegos p{
+    padding: 5px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+header .buscador .resultadosJuegos p span{
+    margin-left: 16px;
+}
+.cont{
+    height: auto;
+    margin-top: 60px;
+    padding: 20px;
+}
+.cont table{
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
+}
+.cont tr td{
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.cont head tr{
+    border: 1px solid black;
+    padding: 10px;
+    border-collapse: collapse;
+    color: var(--row-text-color);
+}
+tr:nth-child(even){
+    background-color: var(--row-background-color-even);
+}
+tr:nth-child(odd){
+    background-color: var(--row-background-color-odd);
+}
+tr:hover td{
+    background-color: var(--row-text-color);    
+    color: white;
+}
+td#a:hover::before {
+    content: "555";
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    margin-top: -20px;
+    z-index: 1;
+}    
+.cont thead tr{       
+    border-bottom: solid 2px black;
+    color: white;
+    background-color: var(--column-header-background-color);
+}
