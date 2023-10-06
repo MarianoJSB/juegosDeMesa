@@ -252,27 +252,27 @@
         });
 
     //STOCK
-        const columnaStock = tabla.rows[0].cells[5];
-        let ordenAscendenteStock = true;
-        columnaStock.addEventListener("click", function () {
-            const filas = Array.from(tabla.rows).slice(1);
-            filas.sort((filaA, filaB) => {
-                const stockA = parseInt(filaA.cells[5].textContent, 10);
-                const stockB = parseInt(filaB.cells[5].textContent, 10);
-                if (ordenAscendenteStock) {
-                    return stockA - stockB;
-                } else {
-                    return stockB - stockA;
-                }
-            });
-            ordenAscendenteStock = !ordenAscendenteStock;
-            while (tabla.rows.length > 1) {
-                tabla.deleteRow(1);
-            }
-            filas.forEach((fila) => {
-                tabla.appendChild(fila);
-            });
-        });
+        // const columnaStock = tabla.rows[0].cells[5];
+        // let ordenAscendenteStock = true;
+        // columnaStock.addEventListener("click", function () {
+        //     const filas = Array.from(tabla.rows).slice(1);
+        //     filas.sort((filaA, filaB) => {
+        //         const stockA = parseInt(filaA.cells[5].textContent, 10);
+        //         const stockB = parseInt(filaB.cells[5].textContent, 10);
+        //         if (ordenAscendenteStock) {
+        //             return stockA - stockB;
+        //         } else {
+        //             return stockB - stockA;
+        //         }
+        //     });
+        //     ordenAscendenteStock = !ordenAscendenteStock;
+        //     while (tabla.rows.length > 1) {
+        //         tabla.deleteRow(1);
+        //     }
+        //     filas.forEach((fila) => {
+        //         tabla.appendChild(fila);
+        //     });
+        // });
 
     //CATEGORIA
         const selectCategorias = document.getElementById("categorias");

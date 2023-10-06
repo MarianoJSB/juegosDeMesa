@@ -92,10 +92,64 @@
                 </tr>
             </thead>
             <?php 
+
+            //Accion eliminar//
+            if(isset($_GET['borrar'])){
+                $eliminar = $_GET['borrar'];
+                $eliminar_registro = "DELETE FROM juegos WHERE id_juego='$eliminar'";
+                $consultaEliminar = mysqli_query($conexion, $eliminar_registro) ? print("<script>alert('Registro eliminado'); window.location = 'index.php' </script>") : print("<script>alert('ERROR al eliminar') window.location = 'index.php' </script>");
+                }
+
+            //Accion editar//
+            if(isset($_GET['editar'])){
+                $editar = $_GET['editar'];
+
+                //Consultamos por lod datos de los juegos//
+                $sqL_editar = "SELECT * FROM juegos WHERE id_juego = '$editar'";
+                $consulta_editar = mysqli_query($conexion, $sqL_editar);
+                $registro_editar = mysqli_fetch_assoc($consulta_editar);
+
+                //Consultamos por los nombres de las proveedores correspondientes//
+                $sql_pro = "SELECT p.nombre AS nombre_proveedor
+                FROM juegos AS j
+                JOIN proveedor AS p ON j.id_pro = p.id_proveedor
+                WHERE j.id_juego = '$editar'";
+                $proveedor = mysqli_query($conexion, $sql_pro);
+                $registro_proveedor=mysqli_fetch_assoc($proveedor);
+
+                //Consultamos por los nombres de las categorias correspondientes//
+                $sql_cat = "SELECT c.nombre AS nombre_categoria
+                FROM juegos AS j
+                JOIN categoria AS c ON j.id_cat = c.id_categoria
+                WHERE j.id_juego = '$editar'";
+                $categoria = mysqli_query($conexion, $sql_cat);
+                $registro_categoria=mysqli_fetch_assoc($categoria);
+
+                echo '<form action="" method="post">
+                <tr>
+                    <td><label>'.$registro_editar['nombre'].'</label><input type="text" value="'.$registro_editar['nombre'].'" name="nombreJuego" id=""></td>
+                    <td><label>'.$registro_categoria['nombre_categoria'].'</label><input type="text" disabled value="'.$registro_categoria['nombre_categoria'].'" name="Categoria" id=""></td>
+                    <td id="a" title="555"><label>'.$registro_proveedor['nombre_proveedor'].'</label><input type="text" disabled value="'.$registro_proveedor['nombre_proveedor'].'" name="Proveedor" id=""></td>
+                    <td><label>'.$registro_editar['precio'].'</label><input type="number" value="'.$registro_editar['precio'].'" name="precio" min=1 id=""></td>
+                    <td><label>'.$registro_editar['ganancia'].'</label><input type="number" disabled value="'.$registro_editar['ganancia'].'" name="ganancia" id=""></td>                      
+                    <td><label>'.$registro_editar['stock'].'</label><input type="number" value="'.$registro_editar['stock'].'" name="stock" id=""></td>                      
+                    <td><input type="submit" name="actualizar" value="Actualizar"></td>
+                </tr>
+                </form>';
+            }
+
+            if(isset($_POST['actualizar'])) {
+                $juego = $_POST['nombreJuego'];
+                $precio = $_POST['precio'];
+                $stock = $_POST['stock'];
+    
+                $sql_ej = "UPDATE juegos SET nombre = '$juego', precio = '$precio', stock = '$stock' WHERE id_juego = '$editar'";
+                $consulta_editar_juego =  mysqli_query($conexion, $sql_ej) ? print("<script>alert('Registro modificado'); window.location = 'index.php' </script>") : print("<script>alert('ERROR al modificar') window.location = 'index.php' </script>");
+            }
+
                 $sql = "SELECT * FROM juegos";
                 $juegos = mysqli_query($conexion, $sql);            
                 while ($registro=mysqli_fetch_assoc($juegos)) {
-                    
                     $sql = "SELECT * FROM categoria WHERE id_categoria = '$registro[id_cat]'";
                     $categoria = mysqli_query($conexion, $sql);
                     $registroCat=mysqli_fetch_assoc($categoria);
@@ -261,27 +315,27 @@
                 });
 
             //STOCK
-                const columnaStock = tabla.rows[0].cells[5];
-                let ordenAscendenteStock = true;
-                columnaStock.addEventListener("click", function () {
-                    const filas = Array.from(tabla.rows).slice(1);
-                    filas.sort((filaA, filaB) => {
-                        const stockA = parseInt(filaA.cells[5].textContent, 10);
-                        const stockB = parseInt(filaB.cells[5].textContent, 10);
-                        if (ordenAscendenteStock) {
-                            return stockA - stockB;
-                        } else {
-                            return stockB - stockA;
-                        }
-                    });
-                    ordenAscendenteStock = !ordenAscendenteStock;
-                    while (tabla.rows.length > 1) {
-                        tabla.deleteRow(1);
-                    }
-                    filas.forEach((fila) => {
-                        tabla.appendChild(fila);
-                    });
-                });
+                // const columnaStock = tabla.rows[0].cells[5];
+                // let ordenAscendenteStock = true;
+                // columnaStock.addEventListener("click", function () {
+                //     const filas = Array.from(tabla.rows).slice(1);
+                //     filas.sort((filaA, filaB) => {
+                //         const stockA = parseInt(filaA.cells[5].textContent, 10);
+                //         const stockB = parseInt(filaB.cells[5].textContent, 10);
+                //         if (ordenAscendenteStock) {
+                //             return stockA - stockB;
+                //         } else {
+                //             return stockB - stockA;
+                //         }
+                //     });
+                //     ordenAscendenteStock = !ordenAscendenteStock;
+                //     while (tabla.rows.length > 1) {
+                //         tabla.deleteRow(1);
+                //     }
+                //     filas.forEach((fila) => {
+                //         tabla.appendChild(fila);
+                //     });
+                // });
 
             //CATEGORIA
                 const selectCategorias = document.getElementById("categorias");
