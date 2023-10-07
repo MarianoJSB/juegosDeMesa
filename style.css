@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: 0;
-    font-family: 'Rubik', sans-serif;
+    /* font-family: 'Rubik', sans-serif; */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 :root[data-theme="light"] {
@@ -100,7 +101,8 @@ header .buscador .bot{
     display: flex;
     flex-direction: row-reverse;
     width: 100%;    
-    align-items: center;       
+    align-items: center;    
+    z-index: 10000000000000000000000000000000000000000000000;   
     
 }
 header .buscador label{    
@@ -140,16 +142,23 @@ header .buscador input{
     border-radius: 5px 0 0 5px;
     border-style: none;
     outline: none;
+    
 
 }
-header .right .buscador .resultadosJuegos{
-    width: 80%;    
-    display: none;
+header .right .buscador .resultadosJuegos{    
+    width: 77%;    
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;    
     font-size: 0.8rem;        
-    height: auto;        
+    height: auto;   
+    margin-top: -15px;     
+    padding-top: 15px;
+    margin-left: -23%;
+    background-color: #f1f1f1;
+    z-index: 100000000;
+    border-radius: 0 5px 5px 0;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.272);
 }
 .divisor{    
@@ -162,7 +171,7 @@ header .right .buscador .resultadosJuegos{
 .div{
     height: 1px;
     width: 100%;
-    
+    background-color: var(--accent);
 }
 header .buscador .resultadosJuegos p{
     padding: 5px;
@@ -174,16 +183,17 @@ header .buscador .resultadosJuegos p{
 }
 header .buscador .resultadosJuegos p span{
     margin-left: 16px;
-}td#acciones{    
+}
+td#acciones{    
     display: flex;
     margin: 13% 7%;
     padding: 6px 0;    
     justify-content: space-evenly;
-    background-color: var(--text);    
+    background-color: #e8e8e8;    
 }
 .cont{
     height: auto;
-    margin-top: 60px;
+    margin-top: 40px;
     padding: 20px;
 }
 .cont table{
@@ -261,9 +271,9 @@ td#a:hover::before {
 /* Estilo para mostrar el select cuando se hace clic en el título */
 #categorias.show {
     display: block;
-    position: absolute;
-    left: 20%;    
-    top: 20%;
+    position: fixed;
+    left: 21.6%;    
+    top: 19.5%;
     height: 100px;
     width: 160px;
     padding: 5px; 
@@ -277,11 +287,11 @@ td#a:hover::before {
 /* Estilo para mostrar el select cuando se hace clic en el título */
 #proveedores.show{
     display: block;
-    position: absolute;
-    left: 35.5%;    
-    top: 20%;
+    position: fixed;
+    left: 37.25%;    
+    top: 19.5%;
     height: 100px;
-    width: 200px;
+    width: 198px;
     padding: 5px;    
     z-index: 10000000000000000000000000000000;
 }

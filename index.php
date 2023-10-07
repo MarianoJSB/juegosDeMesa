@@ -16,7 +16,7 @@
     <header>
         <div class="left">           
             <div class="title">
-                <h1>Logo</h1>
+                <a href="http://localhost/juegosDeMesa/juegosDeMesa/index.php" style="text-decoration: none; color: black;"><h1>Logo</h1></a>
             </div>
         </div>
         <div class="right">
@@ -29,9 +29,7 @@
                     <label for="busquedaJuego"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></label>
                     <input type="search" name="busqueda" id="busquedaJuego" placeholder="Buscar Juego"  id="buscador">                            
                 </div>
-                <div class="resultadosJuegos" id="resultadosJuegos">
-                    <p>Nombre Juego</p>                
-                    <div class="div"></div>
+                <div class="resultadosJuegos" id="resultadosJuegos">                    
                 </div>                    
             </div>
             <div class="log">
@@ -91,88 +89,91 @@
                     <th id="num">Acciones</th>                
                 </tr>
             </thead>
+            <div id="contenedorJuegos">
             <?php 
 
-            //Accion eliminar//
-            if(isset($_GET['borrar'])){
-                $eliminar = $_GET['borrar'];
-                $eliminar_registro = "DELETE FROM juegos WHERE id_juego='$eliminar'";
-                $consultaEliminar = mysqli_query($conexion, $eliminar_registro) ? print("<script>alert('Registro eliminado'); window.location = 'index.php' </script>") : print("<script>alert('ERROR al eliminar') window.location = 'index.php' </script>");
-                }
+                        //Accion eliminar//
+                        if(isset($_GET['borrar'])){
+                            $eliminar = $_GET['borrar'];
+                            $eliminar_registro = "DELETE FROM juegos WHERE id_juego='$eliminar'";
+                            $consultaEliminar = mysqli_query($conexion, $eliminar_registro) ? print("<script>alert('Registro eliminado'); window.location = 'index.php' </script>") : print("<script>alert('ERROR al eliminar') window.location = 'index.php' </script>");
+                            }
 
-            //Accion editar//
-            if(isset($_GET['editar'])){
-                $editar = $_GET['editar'];
+                        //Accion editar//
+                        if(isset($_GET['editar'])){
+                            $editar = $_GET['editar'];
 
-                //Consultamos por lod datos de los juegos//
-                $sqL_editar = "SELECT * FROM juegos WHERE id_juego = '$editar'";
-                $consulta_editar = mysqli_query($conexion, $sqL_editar);
-                $registro_editar = mysqli_fetch_assoc($consulta_editar);
+                            //Consultamos por lod datos de los juegos//
+                            $sqL_editar = "SELECT * FROM juegos WHERE id_juego = '$editar'";
+                            $consulta_editar = mysqli_query($conexion, $sqL_editar);
+                            $registro_editar = mysqli_fetch_assoc($consulta_editar);
 
-                //Consultamos por los nombres de las proveedores correspondientes//
-                $sql_pro = "SELECT p.nombre AS nombre_proveedor
-                FROM juegos AS j
-                JOIN proveedor AS p ON j.id_pro = p.id_proveedor
-                WHERE j.id_juego = '$editar'";
-                $proveedor = mysqli_query($conexion, $sql_pro);
-                $registro_proveedor=mysqli_fetch_assoc($proveedor);
+                            //Consultamos por los nombres de las proveedores correspondientes//
+                            $sql_pro = "SELECT p.nombre AS nombre_proveedor
+                            FROM juegos AS j
+                            JOIN proveedor AS p ON j.id_pro = p.id_proveedor
+                            WHERE j.id_juego = '$editar'";
+                            $proveedor = mysqli_query($conexion, $sql_pro);
+                            $registro_proveedor=mysqli_fetch_assoc($proveedor);
 
-                //Consultamos por los nombres de las categorias correspondientes//
-                $sql_cat = "SELECT c.nombre AS nombre_categoria
-                FROM juegos AS j
-                JOIN categoria AS c ON j.id_cat = c.id_categoria
-                WHERE j.id_juego = '$editar'";
-                $categoria = mysqli_query($conexion, $sql_cat);
-                $registro_categoria=mysqli_fetch_assoc($categoria);
+                            //Consultamos por los nombres de las categorias correspondientes//
+                            $sql_cat = "SELECT c.nombre AS nombre_categoria
+                            FROM juegos AS j
+                            JOIN categoria AS c ON j.id_cat = c.id_categoria
+                            WHERE j.id_juego = '$editar'";
+                            $categoria = mysqli_query($conexion, $sql_cat);
+                            $registro_categoria=mysqli_fetch_assoc($categoria);
 
-                echo '<form action="" method="post">
-                <tr>
-                    <td><label>'.$registro_editar['nombre'].'</label><input type="text" value="'.$registro_editar['nombre'].'" name="nombreJuego" id=""></td>
-                    <td><label>'.$registro_categoria['nombre_categoria'].'</label><input type="text" disabled value="'.$registro_categoria['nombre_categoria'].'" name="Categoria" id=""></td>
-                    <td id="a" title="555"><label>'.$registro_proveedor['nombre_proveedor'].'</label><input type="text" disabled value="'.$registro_proveedor['nombre_proveedor'].'" name="Proveedor" id=""></td>
-                    <td><label>'.$registro_editar['precio'].'</label><input type="number" value="'.$registro_editar['precio'].'" name="precio" min=1 id=""></td>
-                    <td><label>'.$registro_editar['ganancia'].'</label><input type="number" disabled value="'.$registro_editar['ganancia'].'" name="ganancia" id=""></td>                      
-                    <td><label>'.$registro_editar['stock'].'</label><input type="number" value="'.$registro_editar['stock'].'" name="stock" id=""></td>                      
-                    <td><input type="submit" name="actualizar" value="Actualizar"></td>
-                </tr>
-                </form>';
-            }
+                            echo '<form action="" method="post">
+                            <tr>
+                                <td><label>'.$registro_editar['nombre'].'</label><input type="text" value="'.$registro_editar['nombre'].'" name="nombreJuego" id=""></td>
+                                <td><label>'.$registro_categoria['nombre_categoria'].'</label><input type="text" disabled value="'.$registro_categoria['nombre_categoria'].'" name="Categoria" id=""></td>
+                                <td id="a" title="555"><label>'.$registro_proveedor['nombre_proveedor'].'</label><input type="text" disabled value="'.$registro_proveedor['nombre_proveedor'].'" name="Proveedor" id=""></td>
+                                <td><label>'.$registro_editar['precio'].'</label><input type="number" value="'.$registro_editar['precio'].'" name="precio" min=1 id=""></td>
+                                <td><label>'.$registro_editar['ganancia'].'</label><input type="number" disabled value="'.$registro_editar['ganancia'].'" name="ganancia" id=""></td>                      
+                                <td><label>'.$registro_editar['stock'].'</label><input type="number" value="'.$registro_editar['stock'].'" name="stock" id=""></td>                      
+                                <td><input type="submit" name="actualizar" value="Actualizar"></td>
+                            </tr>
+                            </form>';
+                        }
+                        $i = 0;
+                        if(isset($_POST['actualizar'])) {
+                            $juego = $_POST['nombreJuego'];
+                            $precio = $_POST['precio'];
+                            $stock = $_POST['stock'];
+                
+                            $sql_ej = "UPDATE juegos SET nombre = '$juego', precio = '$precio', stock = '$stock' WHERE id_juego = '$editar'";
+                            $consulta_editar_juego =  mysqli_query($conexion, $sql_ej) ? print("<script>alert('Registro modificado'); window.location = 'index.php' </script>") : print("<script>alert('ERROR al modificar') window.location = 'index.php' </script>");
+                        }
 
-            if(isset($_POST['actualizar'])) {
-                $juego = $_POST['nombreJuego'];
-                $precio = $_POST['precio'];
-                $stock = $_POST['stock'];
-    
-                $sql_ej = "UPDATE juegos SET nombre = '$juego', precio = '$precio', stock = '$stock' WHERE id_juego = '$editar'";
-                $consulta_editar_juego =  mysqli_query($conexion, $sql_ej) ? print("<script>alert('Registro modificado'); window.location = 'index.php' </script>") : print("<script>alert('ERROR al modificar') window.location = 'index.php' </script>");
-            }
-
-                $sql = "SELECT * FROM juegos";
-                $juegos = mysqli_query($conexion, $sql);            
-                while ($registro=mysqli_fetch_assoc($juegos)) {
-                    $sql = "SELECT * FROM categoria WHERE id_categoria = '$registro[id_cat]'";
-                    $categoria = mysqli_query($conexion, $sql);
-                    $registroCat=mysqli_fetch_assoc($categoria);
-                    $sql = "SELECT * FROM proveedor WHERE id_proveedor = '$registro[id_pro]'";
-                    $proveedor = mysqli_query($conexion, $sql);
-                    $registroProv=mysqli_fetch_assoc($proveedor);
-
-                    echo'
-                    <tr>
-                        <td><label>'.$registro['nombre'].'</label><input type="text" value="'.$registro['nombre'].'" name="Nombre" id=""></td>
-                        <td><label>'.$registroCat['nombre'].'</label><input type="text" value="'.$registroCat['nombre'].'" name="Categoria" id=""></td>
-                        <td id="a" title="555"><label>'.$registroProv['nombre'].'</label><input type="text" value="'.$registroProv['nombre'].'" name="Proveedor" id=""></td>
-                        <td><label>'.$registro['precio'].'</label><input type="number" value="'.$registro['precio'].'" name="Precio" id=""></td>
-                        <td><label>'.$registro['ganancia'].'</label><input type="number" value="'.$registro['ganancia'].'" name="Ganancias" id=""></td>
-                        <td><label>'.$registro['stock'].'</label><input type="number" value="'.$registro['stock'].'" name="Stock" id=""></td>
-                        <td id="acciones">         
-                            <a href="index.php?editar='.$registro['id_juego'].'"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>  </a>         
-                            <a href="index.php?borrar='.$registro['id_juego'].'"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#212121}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></a>                                                
-                        </td>                        
-                    </tr>
-                    ';
-                }            
-            ?>               
+                            $sql = "SELECT * FROM juegos";
+                            $juegos = mysqli_query($conexion, $sql);            
+                            while ($registro=mysqli_fetch_assoc($juegos)) {
+                                $sql = "SELECT * FROM categoria WHERE id_categoria = '$registro[id_cat]'";
+                                $categoria = mysqli_query($conexion, $sql);
+                                $registroCat=mysqli_fetch_assoc($categoria);
+                                $sql = "SELECT * FROM proveedor WHERE id_proveedor = '$registro[id_pro]'";
+                                $proveedor = mysqli_query($conexion, $sql);
+                                $registroProv=mysqli_fetch_assoc($proveedor);
+                                $i = $i++;
+                                echo'
+                                <tr id="tr'.$i.'">
+                                    <td><label>'.$registro['nombre'].'</label><input type="text" value="'.$registro['nombre'].'" name="Nombre" id="nombreJuego'.$i.'" readonly></td>
+                                    <td><label>'.$registroCat['nombre'].'</label><input type="text" value="'.$registroCat['nombre'].'" name="Categoria" id="" readonly></td>
+                                    <td id="a" title="555"><label>'.$registroProv['nombre'].'</label><input type="text" value="'.$registroProv['nombre'].'" name="Proveedor" id="" readonly></td>
+                                    <td><label>'.$registro['precio'].'</label><input type="number" value="'.$registro['precio'].'" name="Precio" id="" readonly></td>
+                                    <td><label>'.$registro['ganancia'].'</label><input type="number" value="'.$registro['ganancia'].'" name="Ganancias" id="" readonly></td>
+                                    <td><label>'.$registro['stock'].'</label><input type="number" value="'.$registro['stock'].'" name="Stock" id="" readonly></td>
+                                    <td id="acciones">         
+                                        <a href="index.php?editar='.$registro['id_juego'].'"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>  </a>         
+                                        <a href="index.php?borrar='.$registro['id_juego'].'"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#212121}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></a>                                                
+                                    </td>                        
+                                </tr>
+                                ';
+                            }
+                            echo '<p style="display: none;" id="juegosLength">'.$i.'</p>';
+            ?>          
+            </div>     
         </table>
 
     </div>        
@@ -187,7 +188,10 @@
             // Agrega un evento de blur al input
             inputBusqueda.addEventListener("blur", function() {
                 // Oculta el div de resultados cuando se pierde el foco
-                resultadosJuegos.style.display = "none";
+                setTimeout(() => {
+                    resultadosJuegos.style.display = "none";    
+                }, 1000);
+                
             });
 
 
@@ -390,5 +394,6 @@
                 });
     </script>
     <script src="/juegosDeMesa/juegosDeMesa/busqueda.js"></script>
+
 </body>
 </html>
