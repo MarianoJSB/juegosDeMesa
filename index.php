@@ -35,12 +35,21 @@
             <div class="log">
                 <label>Bienvenida Laura!</label>                
                 <div class="img">
-                    <img src="/Portafolio/Trabajos/RedSocial/iconos/usuario (2).png" alt="">
+                    <img src="./default.png" style="
+                                                width: 30px; 
+                                                height: 30px;
+                                                background-color: white;
+                                                border-radius: 50%;
+                                                padding: 2px;
+                                                box-shadow: 1px 1px 5px black;
+                                                
+                                                "
+                    >
                 </div>            
             </div>
         </div>
     </header>                                                                  
-    <div class="cont"> 
+    <div class="cont" style="display:flex; flex-direction: column-reverse;"> 
         <select id="categorias" multiple>
             <option value="Todos">Todos</option>
             <option value="Estrategia">Estrategia</option>
@@ -78,17 +87,17 @@
             <option value="JuegosdelFuturo Ltd.">JuegosdelFuturo Ltd.</option>
         </select>
         <table id="miTabla">
-            <thead>                
-                <tr>                
-                    <th class="nombre">Nombre</th>
-                    <th id="categoria-title">Categoria</th>                                                    
-                    <th id="proveedor-title">Proveedor</th>                                                        
-                    <th id="num">Precio</th>
-                    <th id="num">Ganancia</th>
-                    <th id="num">Stock</th>
-                    <th id="num">Acciones</th>                
-                </tr>
-            </thead>
+        <thead>                
+            <tr id="filaUno">                
+                <th class="nombre">Nombre <span class="orden-icon-nombre">&#9660;</span></th>
+                <th id="categoria-title">Categoria</th>
+                <th id="proveedor-title">Proveedor</th>
+                <th id="num">Precio <span class="orden-icon-precio">&#9650;</span></th>
+                <th id="num">Ganancia <span class="orden-icon-ganancia">&#9650;</span></th>
+                <th id="num">Stock <span class="orden-icon-stock">&#9650;</span></th>
+                <th id="num">Acciones</th>                
+            </tr>
+        </thead>
             <div id="contenedorJuegos">
             <?php 
 
@@ -145,9 +154,18 @@
                             $sql_ej = "UPDATE juegos SET nombre = '$juego', precio = '$precio', stock = '$stock' WHERE id_juego = '$editar'";
                             $consulta_editar_juego =  mysqli_query($conexion, $sql_ej) ? print("<script>alert('Registro modificado'); window.location = 'index.php' </script>") : print("<script>alert('ERROR al modificar') window.location = 'index.php' </script>");
                         }
+                        // Número de resultados por página
+                        $registros_por_pagina = 50;
 
-                            $sql = "SELECT * FROM juegos";
-                            $juegos = mysqli_query($conexion, $sql);            
+                        // Obtener el número de página actual
+                        $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+                        // Calcular el inicio de los resultados a mostrar
+                        $inicio = ($pagina_actual - 1) * $registros_por_pagina;
+
+                        // Consulta SQL con LIMIT para la paginación
+                        $sql = "SELECT * FROM juegos LIMIT $inicio, $registros_por_pagina";
+                        $juegos = mysqli_query($conexion, $sql);          
                             while ($registro=mysqli_fetch_assoc($juegos)) {
                                 $sql = "SELECT * FROM categoria WHERE id_categoria = '$registro[id_cat]'";
                                 $categoria = mysqli_query($conexion, $sql);
@@ -172,12 +190,47 @@
                                 ';
                             }
                             echo '<p style="display: none;" id="juegosLength">'.$i.'</p>';
-            ?>          
+            // Consulta para obtener el número total de registros
+$sql_total = "SELECT COUNT(*) as total FROM juegos";
+$resultado_total = mysqli_query($conexion, $sql_total);
+$datos_total = mysqli_fetch_assoc($resultado_total);
+$total_registros = $datos_total['total'];
+
+// Calcular el número total de páginas
+$total_paginas = ceil($total_registros / $registros_por_pagina);
+?>
+    <!-- Agregar controles de navegación para la paginación -->
+    
+    <div class="pagination" style="display: flex;
+                                width: 100%;
+                                height: 60px;
+                                background-color: var(--bgHeader);
+                                justify-content: space-evenly;
+                                align-items: center;">
+        <?php if ($pagina_actual > 1): ?>
+            <a style="text-decoration: none;" href="index.php?pagina=<?php echo $pagina_actual - 1; ?>">Anterior</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+            <a style="text-decoration: none;" href="index.php?pagina=<?php echo $i; ?>" <?php echo ($pagina_actual == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
+        <?php endfor; ?>
+
+        <?php if ($pagina_actual < $total_paginas): ?>
+            <a style="text-decoration: none;" href="index.php?pagina=<?php echo $pagina_actual + 1; ?>">Siguiente</a>
+        <?php endif; ?>
+    </div>     
             </div>     
         </table>
 
     </div>        
     <script>
+        const iconoNombre = document.querySelector(".orden-icon-nombre"); // Elemento del icono
+        const iconoPrecio = document.querySelector(".orden-icon-precio"); // Elemento del icono
+        const iconoGanancia = document.querySelector(".orden-icon-ganancia"); // Elemento del icono
+        const iconoStock = document.querySelector(".orden-icon-stock"); // Elemento del icono
+                    
+
+
             var inputBusqueda = document.getElementById("busquedaJuego");
             var resultadosJuegos = document.getElementById("resultadosJuegos");
             // Agrega un evento de focus al input
@@ -247,30 +300,36 @@
                         document.documentElement.setAttribute('data-theme', 'light');
                     }
                 });
-            //NOMBRE        
-                let ordenNombreAscendente = true;
-                const celdaNombre = document.querySelector(".nombre");
-                celdaNombre.addEventListener("click", function () {
-                    const filas = Array.from(tabla.rows).slice(1);
-                    filas.sort((filaA, filaB) => {
-                        const nombreA = filaA.cells[0].textContent; 
-                        const nombreB = filaB.cells[0].textContent;
+            // NOMBRE
+            let ordenNombreAscendente = true;
+            const celdaNombre = document.querySelector(".nombre");
+            celdaNombre.addEventListener("click", function () {
+                const filas = Array.from(tabla.rows).slice(1);
+                filas.sort((filaA, filaB) => {
+                    const nombreA = filaA.cells[0].textContent; 
+                    const nombreB = filaB.cells[0].textContent;
 
-                        if (ordenNombreAscendente) {
-                            return nombreA.localeCompare(nombreB); 
-                        } else {
-                            return nombreB.localeCompare(nombreA); 
-                        }
-                    });
-                    ordenNombreAscendente = !ordenNombreAscendente;
-                    while (tabla.rows.length > 1) {
-                        tabla.deleteRow(1);
+                    if (ordenNombreAscendente) {
+                        return nombreA.localeCompare(nombreB); 
+                    } else {
+                        return nombreB.localeCompare(nombreA); 
                     }
-                    filas.forEach((fila) => {
-                        tabla.appendChild(fila);
-                    });
+                });
+                ordenNombreAscendente = !ordenNombreAscendente;
+                while (tabla.rows.length > 1) {
+                    tabla.deleteRow(1);
+                }
+                filas.forEach((fila) => {
+                    tabla.appendChild(fila);
                 });
 
+                // Cambia la visibilidad y el ícono del orden
+                iconoPrecio.style.display = "none";
+                iconoGanancia.style.display = "none";
+                iconoStock.style.display = "none";
+                iconoNombre.style.display = "inline-block";
+                iconoNombre.textContent = ordenNombreAscendente ? "\u25BC" : "\u25B2"; // Flecha hacia arriba o abajo
+            });
             //PRECIO    
                 const tabla = document.getElementById("miTabla");
                 const columnaPrecio = tabla.rows[0].cells[3]; 
@@ -280,6 +339,7 @@
                     filas.sort((filaA, filaB) => {
                         const precioA = parseFloat(filaA.cells[3].textContent);
                         const precioB = parseFloat(filaB.cells[3].textContent);
+        
                         if (ordenAscendente) {
                             return precioA - precioB; 
                         } else {
@@ -293,6 +353,12 @@
                     filas.forEach((fila) => {
                         tabla.appendChild(fila);
                     });
+                    // Cambia la visibilidad y el ícono del orden
+                        iconoNombre.style.display = "none";
+                        iconoGanancia.style.display = "none";
+                        iconoStock.style.display = "none";
+                        iconoPrecio.style.display = "inline-block";
+                        iconoPrecio.textContent = ordenAscendente ? "\u25BC" : "\u25B2"; // Flecha hacia arriba o abajo
                 });
 
             //GANANCIA
@@ -316,6 +382,12 @@
                     filas.forEach((fila) => {
                         tabla.appendChild(fila);
                     });
+                     // Cambia la visibilidad y el ícono del orden
+                        iconoNombre.style.display = "none";
+                        iconoPrecio.style.display = "none";
+                        iconoStock.style.display = "none";
+                        iconoGanancia.style.display = "inline-block";
+                        iconoGanancia.textContent = ordenAscendenteGanancia ? "\u25BC" : "\u25B2"; // Flecha hacia arriba o abajo
                 });
 
             //STOCK
@@ -339,6 +411,12 @@
                     filas.forEach((fila) => {
                         tabla.appendChild(fila);
                     });
+                     // Cambia la visibilidad y el ícono del orden
+                        iconoNombre.style.display = "none";
+                        iconoGanancia.style.display = "none";
+                        iconoPrecio.style.display = "none";
+                        iconoStock.style.display = "inline-block";
+                        iconoStock.textContent = ordenAscendenteStock ? "\u25BC" : "\u25B2"; // Flecha hacia arriba o abajo
                 });
 
             //CATEGORIA
